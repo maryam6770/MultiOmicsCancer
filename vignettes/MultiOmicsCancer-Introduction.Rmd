@@ -1,0 +1,195 @@
+---
+title: "Introduction to MultiOmicsCancer"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to MultiOmicsCancer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+# Introduction
+
+**MultiOmicsCancer** is a modular, cancer-agnostic R package for integrative
+multi-omics analysis in cancer research. It provides a unified framework for:
+
+- Differential methylation analysis
+- Differential gene expression analysis
+- Methylation-expression integration
+- Survival analysis
+- Publication-quality visualization
+
+The package works with **any cancer type** — from TCGA and cBioPortal to
+user-provided datasets — without requiring code modifications.
+
+# Installation
+
+```{r install, eval = FALSE}
+# Install from GitHub
+devtools::install_github("maryam6770/MultiOmicsCancer")
+```
+
+```{r setup}
+library(MultiOmicsCancer)
+```
+
+# Loading Data
+
+The `load_cancer_data()` function loads multi-omics data from cBioPortal,
+TCGA, or user-provided datasets. It returns a `MultiAssayExperiment` object
+that all downstream functions can use.
+
+## Option 1: Load from cBioPortal
+
+```{r load-cbioportal}
+# Load breast cancer data from cBioPortal
+brca <- load_cancer_data(
+  cancer_type = "brca_tcga",
+  data_types = c("methylation", "expression")
+)
+```
+
+## Option 2: Load custom data
+
+If you have your own data, you can provide it as a named list of matrices.
+
+```{r load-custom}
+# Simulate custom multi-omics data
+set.seed(42)
+n_samples <- 20
+n_genes <- 200
+
+meth <- matrix(runif(n_genes * n_samples, 0, 1),
+               nrow = n_genes, ncol = n_samples)
+expr <- matrix(rnorm(n_genes * n_samples, mean = 8, sd = 1.5),
+               nrow = n_genes, ncol = n_samples)
+rownames(meth) <- paste0("Gene", seq_len(n_genes))
+rownames(expr) <- paste0("Gene", seq_len(n_genes))
+colnames(meth) <- paste0("Sample", seq_len(n_samples))
+colnames(expr) <- paste0("Sample", seq_len(n_samples))
+
+# Induce epigenetic silencing for the first 30 genes
+for (i in 1:30) {
+  expr[i, ] <- 15 - 5 * meth[i, ] + rnorm(n_samples, 0, 0.3)
+}
+
+custom_mae <- load_cancer_data(
+  cancer_type = "my_study",
+  data_types = c("methylation", "expression"),
+  source = "custom",
+  custom_data = list(methylation = meth, expression = expr)
+)
+```
+
+# Differential Methylation Analysis
+
+The `analyze_methylation()` function identifies hyper- and hypomethylated
+probes between two groups.
+
+```{r analyze-methylation, eval = FALSE}
+dmr <- analyze_methylation(
+  brca,
+  group_column = "sample_type",
+  group_levels = c("Solid Tissue Normal", "Primary Tumor"),
+  delta_beta = 0.1,
+  p_cutoff = 0.05
+)
+
+# View the top differentially methylated probes
+head(dmr[dmr$significant, ])
+```
+
+# Differential Expression Analysis
+
+The `analyze_expression()` function performs differential gene expression
+analysis using either `limma` or `DESeq2`.
+
+```{r analyze-expression, eval = FALSE}
+deg <- analyze_expression(
+  brca,
+  method = "limma",
+  logFC_cutoff = 1,
+  p_cutoff = 0.05
+)
+
+# View the top differentially expressed genes
+head(deg[deg$significant, ])
+```
+
+# Integrating Methylation and Expression
+
+The `integrate_meth_expr()` function identifies genes whose expression is
+significantly correlated with their promoter methylation.
+
+```{r integrate}
+integrated <- integrate_meth_expr(
+  custom_mae,
+  correlation_method = "pearson",
+  cor_cutoff = 0.3,
+  p_cutoff = 0.05
+)
+
+# Filter epigenetically silenced genes
+silenced <- integrated[integrated$significant &
+                        integrated$regulation == "Negative", ]
+head(silenced)
+```
+
+# Survival Analysis
+
+The `analyze_survival()` function performs Kaplan-Meier and Cox regression
+analysis for any molecular feature.
+
+```{r survival, eval = FALSE}
+surv <- analyze_survival(
+  brca,
+  time_column = "OS.time",
+  event_column = "OS",
+  feature_name = "TP53",
+  split_method = "median"
+)
+
+# View log-rank p-value
+surv$logrank_p
+
+# View Cox model summary
+surv$cox_summary$coefficients
+```
+
+# Visualization
+
+The `plot_cancer()` function creates publication-quality plots.
+
+## Volcano plot of differential expression
+
+```{r plot-volcano, eval = FALSE}
+p1 <- plot_cancer(deg, plot_type = "volcano", fc_cutoff = 1)
+print(p1)
+```
+
+## Correlation histogram
+
+```{r plot-correlation}
+p2 <- plot_cancer(integrated, plot_type = "correlation")
+print(p2)
+```
+
+## Survival curve
+
+```{r plot-survival, eval = FALSE}
+p3 <- plot_cancer(plot_type = "survival", surv_result = surv)
+print(p3)
+```
+
+# Session Information
+
+```{r session}
+sessionInfo()
+```
