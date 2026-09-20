@@ -1,0 +1,45 @@
+Package: MultiOmicsCancer
+Title: Integrative Multi-Omics Analysis for Pan-Cancer Research
+Version: 0.0.0.9000
+Authors@R: 
+    person("Maryam", "Emami", , "Maryam.emami1499@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0008-7710-3274"))
+Description: A modular and cancer-agnostic framework for integrative
+    analysis of multi-omics data in cancer research. The package provides
+    tools for differential methylation analysis, gene expression analysis,
+    miRNA profiling, multi-omics integration, survival analysis, and
+    biomarker discovery. It supports data from TCGA, cBioPortal, GEO, and
+    user-provided datasets, and is designed to work across any cancer type.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends: 
+    R (>= 4.5)
+Imports: 
+    methods,
+    MultiAssayExperiment,
+    SummarizedExperiment,
+    limma,
+    DESeq2,
+    survival,
+    survminer,
+    ggplot2,
+    rlang
+Suggests: 
+    cBioPortalData,
+    curatedTCGAData,
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    BiocCheck
+biocViews: 
+    Epigenetics,
+    DNAMethylation,
+    GeneExpression,
+    Transcriptomics,
+    Cancer,
+    DifferentialExpression,
+    Survival,
+    Multiomics
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0
