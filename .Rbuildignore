@@ -1,4 +1,7 @@
-^MultiOmicsCancer\.Rproj$
-^\.Rproj\.user$
+^paper$
 ^LICENSE\.md$
-^\.github$
+^sessionInfo\.txt$
+^\.gitignore$
+^MultiOmicsCancer\.BiocCheck$
+^\.git$
+^\.Rproj\.user$

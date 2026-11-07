@@ -8,6 +8,7 @@ load_cancer_data(
   cancer_type,
   data_types = c("methylation", "expression", "mirna"),
   source = "cBioPortal",
+  genes = NULL,
   custom_data = NULL,
   verbose = TRUE
 )
@@ -23,6 +24,11 @@ all three.}
 
 \item{source}{Character. Data source. One of \code{"cBioPortal"} (default),
 \code{"custom"}, or \code{"TCGA"}.}
+
+\item{genes}{Optional character vector of gene symbols to restrict the
+download (e.g., \code{c("TP53", "BRCA1", "EGFR")}). Only used when
+\code{source = "cBioPortal"}. If \code{NULL} (default), all available
+genes are downloaded, which can be very slow for large studies.}
 
 \item{custom_data}{Optional. A named list of matrices for custom data.
 Names must match \code{data_types}. Only used when \code{source = "custom"}.}
@@ -40,12 +46,15 @@ object that can be used by all downstream analysis functions in the package.
 }
 \examples{
 \dontrun{
-# Load breast cancer data from cBioPortal
+# Load breast cancer data from cBioPortal (all genes)
 brca <- load_cancer_data("brca_tcga")
 
-# Load only methylation and expression
-luad <- load_cancer_data("luad_tcga",
-                         data_types = c("methylation", "expression"))
+# Load only selected genes (faster)
+brca <- load_cancer_data(
+  "brca_tcga",
+  data_types = c("methylation", "expression"),
+  genes = c("TP53", "BRCA1", "BRCA2", "EGFR")
+)
 
 # Load custom data
 custom <- load_cancer_data("my_study",

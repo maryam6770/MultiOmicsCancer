@@ -1,0 +1,4 @@
+# MultiOmicsCancer 0.99.1
+
+* Initial Bioconductor submission.
+* Fixed DESCRIPTION fields and biocViews.

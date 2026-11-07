@@ -1,7 +1,35 @@
-.Rproj.user
+# Raw TCGA data folders (UUID-named)
+[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]-*
+
+# Analysis results and checkpoints
+*.rds
+checkpoints/
+perm_checkpoints_1000/
+rep_cv_ckpt/
+rep_cv_ckpt_fixed/
+
+# Figures and manuscript
+Figure*.png
+Figure*.pdf
+paper/
+
+# BiocCheck output
+MultiOmicsCancer.BiocCheck/
+
+# Miscellaneous
+MANIFEST.txt
+*.tar.gz
+sessionInfo.txt
+GDCdata/
+
+# R build artifacts
+*.Rcheck/
+*.tar.gz
+# IDE files
 .Rhistory
+.Rproj.user/
 .RData
-.httr-oauth
-.DS_Store
-.quarto
-inst/doc
+# IDE files
+.Rhistory
+.Rproj.user/
+.RData

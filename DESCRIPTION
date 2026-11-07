@@ -1,47 +1,53 @@
 Package: MultiOmicsCancer
-Title: Integrative Multi-Omics Analysis for Pan-Cancer Research
-Version: 0.1.0
+Title: Methylation-Based Prognostic Scoring and Multi-Omics Analysis for Cancer Research
+Version: 0.99.4
 Authors@R: 
-    person("Maryam", "Emami", , "Maryam.emami1499@gmail.com", role = c("aut", "cre"),
+    person("Maryam", "Emami",
+           email = "maryam.emami1499@gmail.com",
+           role = c("aut", "cre"),
            comment = c(ORCID = "0009-0008-7710-3274"))
-Description: A modular and cancer-agnostic framework for integrative
-    analysis of multi-omics data in cancer research. The package provides
-    tools for differential methylation analysis, gene expression analysis,
-    miRNA profiling, multi-omics integration, survival analysis, and
-    biomarker discovery. It supports data from TCGA, cBioPortal, GEO, and
-    user-provided datasets, and is designed to work across any cancer type.
+Description: A modular framework for integrative analysis of DNA methylation
+    and gene expression data in cancer research. The package provides
+    functions for differential methylation analysis, differential
+    expression analysis, methylation-expression correlation, survival
+    analysis, and construction and validation of methylation-based
+    prognostic scores. Data from cBioPortal and TCGA can be loaded via
+    cBioPortalData and curatedTCGAData, and any MultiAssayExperiment
+    object can be used directly as input.
 License: MIT + file LICENSE
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
-Depends: 
-    R (>= 4.5)
-Imports: 
+Depends: R (>= 4.6.0)
+Imports:
     methods,
     MultiAssayExperiment,
     SummarizedExperiment,
     limma,
-    DESeq2,
     survival,
-    survminer,
+    glmnet,
     ggplot2,
-    rlang
-Suggests: 
+    rlang,
+    httr2,
+    stats,
+    utils,
+    DESeq2,
+    survminer,
+    tidyestimate
+Suggests:
     cBioPortalData,
     curatedTCGAData,
-    testthat (>= 3.0.0),
+    BiocStyle,
     knitr,
     rmarkdown,
-    BiocCheck,
+    testthat (>= 3.0.0),
     S4Vectors
-biocViews: 
-    Epigenetics,
-    DNAMethylation,
-    GeneExpression,
-    Transcriptomics,
-    Cancer,
-    DifferentialExpression,
-    Survival,
-    Multiomics
+biocViews: Epigenetics, DNAMethylation, GeneExpression, Transcriptomics,
+    DifferentialExpression, DifferentialMethylation, MultipleComparison,
+    Survival, ImmunoOncology, Regression
+URL: https://github.com/maryam6770/MultiOmicsCancer
+BugReports: https://github.com/maryam6770/MultiOmicsCancer/issues
 Config/testthat/edition: 3
-Config/roxygen2/version: 8.1.0
 VignetteBuilder: knitr
+BiocType: Software
+Config/roxygen2/version: 8.1.0
