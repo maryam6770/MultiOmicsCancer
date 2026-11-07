@@ -70,7 +70,7 @@ Performs differential methylation analysis between tumor and normal samples
 the \code{limma} framework for linear modeling of methylation beta values.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 # Load data
 brca <- load_cancer_data("brca_tcga")
 

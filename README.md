@@ -1,38 +1,35 @@
 # MultiOmicsCancer
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23467139.svg)](https://doi.org/10.5281/zenodo.23467139)
 [![R-CMD-check](https://github.com/maryam6770/MultiOmicsCancer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/maryam6770/MultiOmicsCancer/actions/workflows/R-CMD-check.yaml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-**MultiOmicsCancer** is a modular, cancer-agnostic R package for integrative
-multi-omics analysis in cancer research. It provides a unified framework for
-differential methylation analysis, gene expression analysis, multi-omics
-integration, survival analysis, and publication-quality visualization.
+An R package for integrative multi-omics analysis in cancer research, with a novel **Immune Methylation Score (IMS)** framework and built-in validation tools.
 
-The package is designed to work with **any cancer type** — from TCGA and
-cBioPortal to user-provided datasets — without requiring code modifications.
+---
 
-## Features
+## Key Features
 
-- **Differential methylation analysis** — Identify hyper/hypomethylated probes
-  between tumor and normal samples using `limma`.
-- **Differential gene expression analysis** — Support for both `limma` and
-  `DESeq2` backends.
-- **Methylation-expression integration** — Discover epigenetically regulated
-  genes via correlation analysis.
-- **Survival analysis** — Kaplan-Meier curves, log-rank tests, and univariate
-  Cox proportional hazards models.
-- **Publication-quality visualization** — Volcano plots, correlation
-  histograms, and survival curves.
+### Standard analyses
+- Differential methylation (limma)
+- Differential expression (DESeq2)
+- Multi-omics integration
+- Survival analysis (KM + Cox)
+- Visualization
+
+### Novel Q1-level tools
+- `build_ims()` — Construct an Immune Methylation Score
+- `bootstrap_validate_ims()` — Nested bootstrap validation
+- `compare_ims_clinical()` — Compare IMS with clinical variables
+- `estimate_purity()` — ESTIMATE tumor purity and immune score
+- `validate_proteins()` — Protein-level validation via UniProt
+
+---
 
 ## Installation
 
-You can install the development version of `MultiOmicsCancer` from GitHub:
-
 ```r
-# Install devtools if not already installed
-install.packages("devtools")
-
-# Install MultiOmicsCancer
-devtools::install_github("maryam6770/MultiOmicsCancer")
+if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+remotes::install_github("maryam6770/MultiOmicsCancer")

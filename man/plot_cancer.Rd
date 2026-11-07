@@ -64,7 +64,7 @@ integration, and survival analysis. All plots are based on \code{ggplot2}
 and return ggplot objects that can be further customized.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 # Volcano plot of differential expression
 deg <- analyze_expression(brca)
 plot_cancer(deg, plot_type = "volcano")

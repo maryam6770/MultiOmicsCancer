@@ -54,7 +54,7 @@ Performs survival analysis using clinical data and a molecular feature
 curves, log-rank tests, and univariate Cox proportional hazards models.
 }
 \examples{
-\dontrun{
+if (interactive()) {
 # Load data
 brca <- load_cancer_data("brca_tcga")
 

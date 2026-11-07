@@ -33,7 +33,7 @@
 #' @return A \code{ggplot} object.
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' # Volcano plot of differential expression
 #' deg <- analyze_expression(brca)
 #' plot_cancer(deg, plot_type = "volcano")

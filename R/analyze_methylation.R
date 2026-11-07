@@ -43,7 +43,7 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' # Load data
 #' brca <- load_cancer_data("brca_tcga")
 #'
