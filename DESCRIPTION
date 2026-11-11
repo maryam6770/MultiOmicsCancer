@@ -1,6 +1,6 @@
 Package: MultiOmicsCancer
 Title: Methylation-Based Prognostic Scoring and Multi-Omics Analysis for Cancer Research
-Version: 0.99.4
+Version: 0.99.5
 Authors@R: 
     person("Maryam", "Emami",
            email = "maryam.emami1499@gmail.com",
